@@ -1,0 +1,26 @@
+{
+  "name": "book_management_",
+  "version": "1.0.0",
+  "description": "Book_management_System",
+  "main": "Initial.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon Initial.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Akhil102/Book_Management_.git"
+  },
+  "author": "Akhilesh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Akhil102/Book_Management_/issues"
+  },
+  "homepage": "https://github.com/Akhil102/Book_Management_#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  },
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
