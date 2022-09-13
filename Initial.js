@@ -1,13 +1,22 @@
 const express=require("express");
 
+const dotenv = require("dotenv");
+
 const { users }=require("./DATA_BASE/Users.json");
 
 const { books }=require("./DATA_BASE/Books.json");
+
 const user_route=require('./Routes_Collection/User_Route');
 
 const book_route=require('./Routes_Collection/Book_Route');
 
+const DBConnect=require("./Connection.js");
+
+dotenv.config();
+
 const app =express();
+
+DBConnect();
 
 const PORT=8081;
 
@@ -31,13 +40,12 @@ app.use(express.json());
 //     }
 // })
 
-
-
 app.get('/',(req,res)=>{
     res.status(200).json({
         message:"Server is started",
     })
 })
+
 app.use('/users',user_route);
 
 app.use('/books',book_route);
@@ -48,11 +56,10 @@ app.get('*',(req,res)=>{
     })
 });
 
-
-
 app.listen(PORT,()=>{
     console.log(`server is started at port ${PORT}`)
 });
+
 // app.get('*',(req,res)=>{
 //     res.status(404).json({
 //         message:"Server not found",

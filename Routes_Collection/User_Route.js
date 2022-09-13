@@ -1,101 +1,18 @@
 const express = require("express");
+
 const router = express.Router();
-const { users } = require("../DATA_BASE/Users.json");
-const { books } = require("../DATA_BASE/Books.json");
 
-router.get('/', (req, res) => {
-    res.status(200).json({
-        success: true,
-        data: users,
-    });
+const { GetAllUsers, GetUserById, CreateUser, UpdateUser } = require("../controllers/UserController");
 
-});
-router.get('/:id', (req, res) => {
-    const { id } = req.params;
-    const user = users.find((each) => each.id === id);
-    if (user) {
-        res.status(200).json({
-            success: true,
-            data: user,
-        })
-    }
-    else {
-        return res.status(404).json({
-            success: false,
-            message: "user not found",
-        })
-    }
-})
-router.post('/', (req, res) => {
-    const { id, name, surname, email, subscriptionType, subscriptionDate } = req.body;
-    const user = users.find((each) => each.id === id);
+router.get('/', GetAllUsers);
 
-    if (user) {
-        return res.status(404).json({
-            success: false,
-            message: "user already exist"
-        })
-    }
-    else {
-        users.push({
-            id,
-            name,
-            surname,
-            email,
-            subscriptionType,
-            subscriptionDate,
-        })
-        return res.status(201).json({
-            success: true,
-            data: users,
-        })
-    }
-})
-router.put('/:id', (req, res) => {
-    const { id } = req.params
-    const { data } = req.body;
-    const user = users.find((each) => each.id === id);
-    if (!user) {
-        return req.status(404).json({
-            success: false,
-            message: "user not found"
-        })
-    }
+router.get('/:id', GetUserById);
 
-    const newUpdate = users.map((every) => {
-        if (every.id === id) {
-            return {
-                ...every,
-                ...data,
+router.post('/', CreateUser);
 
-            }
-        }
-        return every;
-    })
-    return res.status(200).json({
-        success: true,
-        data: newUpdate
-    })
+router.put('/:id', UpdateUser);
 
-})
-router.get('/user/withIssuedBook', (req, res) => {
-    const userList = [];
-    users.forEach((every) => {
-        if (every.issuedBook) {
-            userList.push(every.name + " " + every.surname);
-        }
-    })
-    if (userList.length === 0) {
-        return res.status(404).json({
-            success: false,
-            message: "no user with issued book"
-        })
-    }
-    return res.status(200).json({
-        success: true,
-        data: userList
-    })
-})
+router.get('/user/withIssuedBook', )
 router.delete('/:id', (req, res) => {
     const { id } = req.params;
     const user = users.find((every) => every.id === id);
